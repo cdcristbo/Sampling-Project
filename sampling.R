@@ -12,12 +12,21 @@ clusters = frame %>%
 # Week 4
 ################
 #p1
+<<<<<<< HEAD
 N = 830138
+=======
+N = 2443
+>>>>>>> f32ad714c550a0dcf21c601b9142e2bf9535cfe3
 P1 = 0.15
 cvP1 = 0.05
 s2P1 = P1 * (1 - P1)
 v2P1 = P1 * cvP1
+<<<<<<< HEAD
 nP1 = round( s2P1 / ( v2P1^2 + (s2P1/N) ) , 0)
+=======
+# check the value
+nP1 = s2P1 / ( v2P1^2 + (s2P1/N) )
+>>>>>>> f32ad714c550a0dcf21c601b9142e2bf9535cfe3
 ################
 # Week 5
 ################
@@ -30,6 +39,7 @@ CostEstudent = 50
 #
 B = n/a
 deffP1 = 2
+<<<<<<< HEAD
 rhoP1 = ( deffP1 - 1 )/( B-1)
 ##
 
@@ -52,3 +62,6 @@ frame %>%
   ungroup() %>% 
   mutate(weight_estrata = tot /sum(tot)) %>% 
   mutate(n_estrata = round(weight_estrata*noptP1,0))
+=======
+rhpP1 = ( deffP1 - 1 )/( B-1)
+>>>>>>> f32ad714c550a0dcf21c601b9142e2bf9535cfe3
