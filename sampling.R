@@ -45,3 +45,10 @@ deff2P1 = 1 + (bOptP1-1)*rhoP1
 var2SRSP1 = P1*(1-P1)/noptP1
 var2P1 = deff2P1 * var2SRSP1
 
+#########
+frame %>% 
+  group_by(Region) %>% 
+  summarise(tot = sum(tot_all)) %>% 
+  ungroup() %>% 
+  mutate(weight_estrata = tot /sum(tot)) %>% 
+  mutate(n_estrata = round(weight_estrata*noptP1,0))
