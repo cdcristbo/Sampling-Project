@@ -74,12 +74,10 @@ sample2 = frame %>%
   mutate(school_clustersP1 = ifelse(school_clustersP1==0,1,school_clustersP1))
 
 
-week7 = frame %>% 
-  left_join(sample2)
-
-sample_sizes = sample2$school_clustersP1
+week7 = frame %>% left_join(sample2)
 
 sample3 = sample2 %>% select(Region,school_clustersP1)
+
 sampleProject=NULL
 
 for (i in  1:9){
