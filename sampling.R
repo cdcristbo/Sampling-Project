@@ -61,21 +61,30 @@ deff2P2 = 1 + (bOptP2-1)*rhoP2
 var2SRSP2 = P2*(1-P2)/noptP2
 var2P2 = deff2P2 * var2SRSP2
 #########
-frame %>% 
+aopt<-80
+bopt<-64
+nopt<-5175
+sample2 = frame %>% 
   group_by(Region) %>% 
   summarise(tot = sum(tot_all)) %>% 
   ungroup() %>% 
   mutate(weight_estrata = tot /sum(tot)) %>% 
-  mutate(n_estrataP1 = round(weight_estrata*noptP1,0),
-         n_estrataP2 = round(weight_estrata*noptP2,0),
-         school_clustersP1 = round(weight_estrata*aOptP1,0),
-         school_clustersP2 = round(weight_estrata*aOptP2,0))
+  mutate(n_estrataP1 = round(weight_estrata*nopt,0),
+         school_clustersP1 = round(weight_estrata*aopt,0)) %>% 
+  mutate(school_clustersP1 = ifelse(school_clustersP1==0,1,school_clustersP1))
 
-Sample2 = frame %>% 
-  group_by(Region) %>% 
-  left_join(frameSample)
 
-Final_Sample = slice_sample(Sample2, n = aOptP1,
-             weight_by = weight_estrata,
-             replace = TRUE)
+week7 = frame %>% 
+  left_join(sample2)
 
+sample_sizes = sample2$school_clustersP1
+
+sample3 = sample2 %>% select(Region,school_clustersP1)
+sampleProject=NULL
+
+for (i in  1:9){
+    sample_df <- week7 %>%
+    filter(Region==sample3$Region[i]) %>%
+    sample_n(sample3$school_clustersP1[i])
+sampleProject=rbind(sampleProject,sample_df)  
+}
