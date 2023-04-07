@@ -71,12 +71,18 @@ sample2 = frame %>%
   mutate(weight_estrata = tot /sum(tot)) %>% 
   mutate(n_estrataP1 = round(weight_estrata*nopt,0),
          school_clustersP1 = round(weight_estrata*aopt,0)) %>% 
-  mutate(school_clustersP1 = ifelse(school_clustersP1==0,1,school_clustersP1))
+  mutate(school_clustersP1 = ifelse(school_clustersP1==0,1,school_clustersP1),
+         school_clustersP1 = ifelse(school_clustersP1==36,35,school_clustersP1),
+         school_clustersP1 = ifelse(school_clustersP1==19,18,school_clustersP1)) %>% 
+  select(-n_estrataP1)
+sample2
+sum(sample2$school_clustersP1)
 
+week7 = frame %>% 
+  left_join(sample2)
 
-week7 = frame %>% left_join(sample2)
-
-sample3 = sample2 %>% select(Region,school_clustersP1)
+sample3 = sample2 %>% 
+  select(Region,school_clustersP1)
 
 sampleProject=NULL
 
